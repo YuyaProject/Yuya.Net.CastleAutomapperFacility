@@ -1,2 +1,12 @@
 language: csharp
 solution: src/Yuya.Net.CastleAutomapperFacility.sln
+mono: none
+dotnet: 2.2.101
+script:
+ - dotnet restore
+
+git:
+  depth: 1
+branches:
+  only:
+- master
