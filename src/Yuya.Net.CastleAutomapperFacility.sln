@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuya.Net.CastleAutomapperFacility", "Yuya.Net.CastleAutomapperFacility\Yuya.Net.CastleAutomapperFacility.csproj", "{7089BBE1-1508-400E-872C-94E43AF1FA12}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuya.Net.CastleAutomapperFacility.NetCoreTest", "Yuya.Net.CastleAutomapperFacility.NetCoreTest\Yuya.Net.CastleAutomapperFacility.NetCoreTest.csproj", "{891B37E6-BAFD-48C8-AC7C-BD4A835518DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuya.Net.CastleAutomapperFacility.NetFrameworkTest", "Yuya.Net.CastleAutomapperFacility.NetFrameworkTest\Yuya.Net.CastleAutomapperFacility.NetFrameworkTest.csproj", "{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		DebugNET461|Any CPU = DebugNET461|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7089BBE1-1508-400E-872C-94E43AF1FA12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7089BBE1-1508-400E-872C-94E43AF1FA12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7089BBE1-1508-400E-872C-94E43AF1FA12}.DebugNET461|Any CPU.ActiveCfg = Debug|Any CPU
+		{7089BBE1-1508-400E-872C-94E43AF1FA12}.DebugNET461|Any CPU.Build.0 = Debug|Any CPU
+		{7089BBE1-1508-400E-872C-94E43AF1FA12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7089BBE1-1508-400E-872C-94E43AF1FA12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{891B37E6-BAFD-48C8-AC7C-BD4A835518DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{891B37E6-BAFD-48C8-AC7C-BD4A835518DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{891B37E6-BAFD-48C8-AC7C-BD4A835518DB}.DebugNET461|Any CPU.ActiveCfg = Debug|Any CPU
+		{891B37E6-BAFD-48C8-AC7C-BD4A835518DB}.DebugNET461|Any CPU.Build.0 = Debug|Any CPU
+		{891B37E6-BAFD-48C8-AC7C-BD4A835518DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{891B37E6-BAFD-48C8-AC7C-BD4A835518DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.DebugNET461|Any CPU.ActiveCfg = DebugNET461|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.DebugNET461|Any CPU.Build.0 = DebugNET461|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9B8836BB-F595-49FA-8183-8218DA57F6B1}
+	EndGlobalSection
+EndGlobal
