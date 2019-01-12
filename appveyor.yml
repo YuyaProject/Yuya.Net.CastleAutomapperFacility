@@ -25,8 +25,9 @@ build:
   parallel: true
   verbosity: minimal
 test_script:
-- ps: .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user "-target:C:\projects\yuya-net-castleautomapperfacility\src\packages\xunit.runner.console.2.4.1\tools\net461\xunit.console.exe" "-targetargs:C:\projects\yuya-net-castleautomapperfacility\src\Yuya.Net.CastleAutomapperFacility.NetFrameworkTest\bin\Release\Yuya.Net.CastleAutomapperFacility.NetFrameworkTest.dll -appveyor -noshadow" "-output:C:\projects\yuya-net-castleautomapperfacility\src\opencoverCoverage.xml"
-- ps: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+- ps: .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user "-target:$env:APPVEYOR_BUILD_FOLDER\src\packages\xunit.runner.console.2.4.1\tools\net461\xunit.console.exe" "-targetargs:$env:APPVEYOR_BUILD_FOLDER\src\Yuya.Net.CastleAutomapperFacility.NetFrameworkTest\bin\Release\Yuya.Net.CastleAutomapperFacility.NetFrameworkTest.dll -appveyor -noshadow" "-filter:+[Yuya*]*" "-output:.\opencoverCoverage.xml" -mergebyhash
+- ps: .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user "-target:C:\Program Files\dotnet\dotnet.exe" "-targetargs:test --no-build --no-restore" "-filter:+[Yuya*]*" "-output:.\opencoverCoverage.xml" -mergebyhash
+#- ps: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --filter Yuya
 - ps: .\tools\csmacnz.Coveralls.exe --opencover -i ./opencoverCoverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
 - ps: .\tools\csmacnz.Coveralls.exe --opencover -i ./Yuya.Net.CastleAutomapperFacility.NetCoreTest\coverage.opencover.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
 deploy: off
