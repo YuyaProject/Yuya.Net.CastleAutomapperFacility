@@ -19,7 +19,7 @@ switch (appVeyorBranch)
 }
 
 var artifactsDir = Directory("./artifacts");
-var solution = "./TheSolution.sln";
+var solution = "./src/Yuya.Net.CastleAutomapperFacility.sln";
 
 Task("Clean")
     .Does(() =>
