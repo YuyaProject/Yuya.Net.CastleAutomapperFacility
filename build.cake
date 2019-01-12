@@ -49,13 +49,13 @@ Task("Run-Tests")
     .IsDependentOn("Build")
     .Does(() =>
     {
-        XUnit2("./Yuya.Net.CastleAutomapperFacility.NetCoreTest/bin/" + configuration + "/**/Yuya.Net.CastleAutomapperFacility.NetCoreTest.dll", new XUnit2Settings
+        XUnit2("./**/bin/" + configuration + "/**/*.NetCoreTest.dll", new XUnit2Settings
         {
             // If needed:
             // Parallelism = ParallelismOption.None
             // or similar.
         });
-        XUnit2("./Yuya.Net.CastleAutomapperFacility.NetFrameworkTest/bin/" + configuration + "/**/Yuya.Net.CastleAutomapperFacility.NetFrameworkTest.dll", new XUnit2Settings
+        XUnit2("./**/bin/" + configuration + "/**/*.NetFrameworkTest.dll", new XUnit2Settings
         {
             // If needed:
             // Parallelism = ParallelismOption.None
@@ -67,21 +67,21 @@ Task("Package")
     .IsDependentOn("Run-Tests")
     .Does(() =>
     {
-        MSBuild("src/Yuya.Net.CastleAutomapperFacility/Yuya.Net.CastleAutomapperFacility.csproj", settings =>
-            settings.SetConfiguration(configuration)
-                .WithProperty("TreatWarningsAsErrors", "True")
-                .SetVerbosity(Verbosity.Minimal)
-                .WithTarget("Package")
-                .WithProperty("PackageLocation", Directory("../..") + artifactsDir));
-
-        NuGetPack("./src/Client/Client.csproj", new NuGetPackSettings
-        {
-            OutputDirectory = artifactsDir,
-            Properties = new Dictionary<string, string>
-            {
-                { "Configuration", configuration }
-            }
-        });
+        # MSBuild("src/Yuya.Net.CastleAutomapperFacility/Yuya.Net.CastleAutomapperFacility.csproj", settings =>
+        #     settings.SetConfiguration(configuration)
+        #         .WithProperty("TreatWarningsAsErrors", "True")
+        #         .SetVerbosity(Verbosity.Minimal)
+        #         .WithTarget("Package")
+        #         .WithProperty("PackageLocation", Directory("../..") + artifactsDir));
+        # 
+        # NuGetPack("./src/Client/Client.csproj", new NuGetPackSettings
+        # {
+        #     OutputDirectory = artifactsDir,
+        #     Properties = new Dictionary<string, string>
+        #     {
+        #         { "Configuration", configuration }
+        #     }
+        # });
     });
 
 Task("Default")

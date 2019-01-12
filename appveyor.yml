@@ -1,47 +1,43 @@
+version: '1.0.{build}'
 image: Visual Studio 2017
 
-cache:
-  - packages -> **\packages.config, nuget.config
-  - tools -> build.cake, build.ps1
-
+branches: 
+  only:
+  - master
+    
+init:
+  # Good practise, because Windows line endings are different from Unix/Linux ones
+  - cmd: git config --global core.autocrlf true
+    
 install:
-  - choco install gitversion.portable -pre -y
+  # Install repo specific stuff here
 
-before_build:
-  - ps: gitversion $env:APPVEYOR_BUILD_FOLDER /l console /output buildserver /updateAssemblyInfo /nofetch /b $env:APPVEYOR_REPO_BRANCH
+ before_build:
+  # Display .NET Core version
+  - cmd: dotnet --version
 
+  - cmd cd ./src/Yuya.Net.CastleAutomapperFacility
+  # Display minimal restore text
+  - cmd: dotnet restore --verbosity m
+  
 build_script:
-  - ps: ./build.ps1
+  # output will be in ./src/bin/debug/netcoreapp1.1/publish
+  - cmd: dotnet build .//src/Yuya.Net.CastleAutomapperFacility/Yuya.Net.CastleAutomapperFacility.csproj -c Release
 
-test: off
-
-artifacts:
-  - path: ./msbuild.log
-  - path: ./artifacts/*.nupkg
-  - path: ./artifacts/Api.zip
-    name: WebPackage
-    type: WebDeployPackage
-
-deploy:
-  - provider: Environment
-    name: Azure Websites (Production)
-    artifact: WebPackage
-    app_name: example-application
-    app_password:
-      secure: secure_app_password_here
-    on:
-      branch: master
-
-  - provider: Environment
-    name: Azure Websites
-    artifact: WebPackage
-    app_name: example-application-qa
-    app_password:
-      secure: secure_app_password_here
-    on:
-      branch: development
-
-  - provider: Environment
-    name: MyGet
-    on:
-      branch: master
+after_build:
+  # For once the build has completed
+  
+# artifacts:
+#  - path: '\src\bin\Debug\netcoreapp1.1\publish'
+#    name: WebSite
+#    type: WebDeployPackage
+clone_depth: 1
+test_script:
+  - cmd: cd ./src/Yuya.Net.CastleAutomapperFacility.NetCoreTest/
+  # restore packages for our unit tests
+  - cmd: dotnet restore --verbosity m
+  # run the unit tests (requires changing into the test directory)
+  - cmd: dotnet test 
+on_finish :
+  # any cleanup in here
+deploy: off
