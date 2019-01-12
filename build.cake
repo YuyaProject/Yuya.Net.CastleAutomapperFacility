@@ -49,7 +49,13 @@ Task("Run-Tests")
     .IsDependentOn("Build")
     .Does(() =>
     {
-        XUnit2("./tests/**/bin/" + configuration + "/*.Tests.dll", new XUnit2Settings
+        XUnit2("./Yuya.Net.CastleAutomapperFacility.NetCoreTest/bin/" + configuration + "/**/Yuya.Net.CastleAutomapperFacility.NetCoreTest.dll", new XUnit2Settings
+        {
+            // If needed:
+            // Parallelism = ParallelismOption.None
+            // or similar.
+        });
+        XUnit2("./Yuya.Net.CastleAutomapperFacility.NetFrameworkTest/bin/" + configuration + "/**/Yuya.Net.CastleAutomapperFacility.NetFrameworkTest.dll", new XUnit2Settings
         {
             // If needed:
             // Parallelism = ParallelismOption.None
@@ -61,7 +67,7 @@ Task("Package")
     .IsDependentOn("Run-Tests")
     .Does(() =>
     {
-        MSBuild("src/Api/Api.csproj", settings =>
+        MSBuild("src/Yuya.Net.CastleAutomapperFacility/Yuya.Net.CastleAutomapperFacility.csproj", settings =>
             settings.SetConfiguration(configuration)
                 .WithProperty("TreatWarningsAsErrors", "True")
                 .SetVerbosity(Verbosity.Minimal)
