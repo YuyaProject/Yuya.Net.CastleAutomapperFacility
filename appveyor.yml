@@ -30,8 +30,6 @@ build:
   verbosity: minimal
 test_script:
 - ps: >-
-    cd src
-    
     .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe –register:user -target:"%xunit20%\xunit.console" -targetargs:"src\Yuya.Net.CastleAutomapperFacility.NetFrameworkTest\bin\Release\Yuya.Net.CastleAutomapperFacility.NetFrameworkTest.dll –appveyor –noshadow" –output:opencoverCoverage.xml
     
     dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
