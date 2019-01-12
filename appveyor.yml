@@ -1,35 +1,35 @@
-version: '1.0.{build}'
+version: 0.0.{build}
 image: Visual Studio 2017
-branches: 
-    only:
-    - master
+configuration: Release
+platform: Any CPU
+environment:
+  COVERALLS_TOKEN:
+    secure: T+HdDBDo+v0SKJcnjeQL6LZWf9iKgDGuNwGjMHTHVlU2WzbjbeVCNfhNVY/+cog2
 init:
-    # Good practise, because Windows line endings are different from Unix/Linux ones
-    - cmd: git config --global core.autocrlf true
-install:
-    # Install repo specific stuff here
- before_build:
-    # Display .NET Core version
-    - cmd: dotnet --version
-    - cmd: cd ./src/Yuya.Net.CastleAutomapperFacility
-    # Display minimal restore text
-    - cmd: dotnet restore --verbosity m
-build_script:
-    # output will be in ./src/bin/debug/netcoreapp1.1/publish
-    - cmd: dotnet build .//src/Yuya.Net.CastleAutomapperFacility/Yuya.Net.CastleAutomapperFacility.csproj -c Release
-after_build:
-    # For once the build has completed
-# artifacts:
-#  - path: '\src\bin\Debug\netcoreapp1.1\publish'
-#    name: WebSite
-#    type: WebDeployPackage
-clone_depth: 1
+- cmd: git config --global core.autocrlf true
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+before_build:
+- cmd: >-
+    cd src
+    dotnet restore --verbosity m
+    nuget restore -verbosity detailed
+    dotnet tool install coveralls.net --version 1.0.0 --tool-path tools
+build:
+  project: src/Yuya.Net.CastleAutomapperFacility.sln
+  parallel: true
+  verbosity: minimal
 test_script:
-    - cmd: cd ./src/Yuya.Net.CastleAutomapperFacility.NetCoreTest/
-    # restore packages for our unit tests
-    - cmd: dotnet restore --verbosity m
-    # run the unit tests (requires changing into the test directory)
-    - cmd: dotnet test 
-on_finish :
-    # any cleanup in here
+- ps: >-
+    cd src
+    .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe –register:user -target:"%xunit20%\xunit.console" -targetargs:"src\Yuya.Net.CastleAutomapperFacility.NetFrameworkTest\bin\Release\Yuya.Net.CastleAutomapperFacility.NetFrameworkTest.dll –appveyor –noshadow" –output:opencoverCoverage.xml
+    dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+    .\tools\csmacnz.Coveralls.exe —opencover –i opencoverCoverage.xml —repoToken $env:COVERALLS_REPO_TOKEN —commitId $env:APPVEYOR_REPO_COMMIT —commitBranch $env:APPVEYOR_REPO_BRANCH —commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR —commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL —commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE —jobId $env:APPVEYOR_JOB_ID
+    .\tools\csmacnz.Coveralls.exe —opencover –i Yuya.Net.CastleAutomapperFacility.NetCoreTest\coverage.opencover.xml —repoToken $env:COVERALLS_REPO_TOKEN —commitId $env:APPVEYOR_REPO_COMMIT —commitBranch $env:APPVEYOR_REPO_BRANCH —commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR —commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL —commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE —jobId $env:APPVEYOR_JOB_ID
 deploy: off
