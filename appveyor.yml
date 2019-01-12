@@ -29,13 +29,9 @@ build:
   parallel: true
   verbosity: minimal
 test_script:
-- ps: >-
-    .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe –register:user -target:"%xunit20%\xunit.console" -targetargs:"src\Yuya.Net.CastleAutomapperFacility.NetFrameworkTest\bin\Release\Yuya.Net.CastleAutomapperFacility.NetFrameworkTest.dll –appveyor –noshadow" –output:opencoverCoverage.xml
-    
-    dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-    
-    .\tools\csmacnz.Coveralls.exe —opencover –i opencoverCoverage.xml —repoToken $env:COVERALLS_REPO_TOKEN —commitId $env:APPVEYOR_REPO_COMMIT —commitBranch $env:APPVEYOR_REPO_BRANCH —commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR —commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL —commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE —jobId $env:APPVEYOR_JOB_ID
-    
-    .\tools\csmacnz.Coveralls.exe —opencover –i Yuya.Net.CastleAutomapperFacility.NetCoreTest\coverage.opencover.xml —repoToken $env:COVERALLS_REPO_TOKEN —commitId $env:APPVEYOR_REPO_COMMIT —commitBranch $env:APPVEYOR_REPO_BRANCH —commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR —commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL —commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE —jobId $env:APPVEYOR_JOB_ID
+- ps: .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console" -targetargs:"src\Yuya.Net.CastleAutomapperFacility.NetFrameworkTest\bin\Release\Yuya.Net.CastleAutomapperFacility.NetFrameworkTest.dll –appveyor –noshadow" –output:opencoverCoverage.xml
+- ps: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+- ps: .\tools\csmacnz.Coveralls.exe —opencover –i opencoverCoverage.xml —repoToken $env:COVERALLS_REPO_TOKEN —commitId $env:APPVEYOR_REPO_COMMIT —commitBranch $env:APPVEYOR_REPO_BRANCH —commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR —commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL —commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE —jobId $env:APPVEYOR_JOB_ID
+- ps: .\tools\csmacnz.Coveralls.exe —opencover –i Yuya.Net.CastleAutomapperFacility.NetCoreTest\coverage.opencover.xml —repoToken $env:COVERALLS_REPO_TOKEN —commitId $env:APPVEYOR_REPO_COMMIT —commitBranch $env:APPVEYOR_REPO_BRANCH —commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR —commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL —commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE —jobId $env:APPVEYOR_JOB_ID
     
 deploy: off
