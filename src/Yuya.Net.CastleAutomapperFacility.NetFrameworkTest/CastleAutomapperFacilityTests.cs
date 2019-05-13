@@ -9,7 +9,7 @@ namespace Yuya.Net.CastleAutomapperFacility.NetFrameworkTest
 {
     public class CastleAutomapperFacilityTests : IDisposable
     {
-        private MockRepository mockRepository;
+        private readonly MockRepository mockRepository;
 
         public CastleAutomapperFacilityTests()
         {
